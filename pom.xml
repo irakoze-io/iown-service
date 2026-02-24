@@ -10,9 +10,9 @@
     </parent>
     <groupId>online.app.eracodes</groupId>
     <artifactId>iown-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>iown-service</name>
-    <description>iown-service</description>
+    <description>A Services &amp; Utilities owned Forecasting and Management Service</description>
     <url/>
     <licenses>
         <license/>
