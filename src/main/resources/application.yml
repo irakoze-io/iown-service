@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    version: 0.0.1
+    name: iown-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://127.0.0.1:5432/nirva?ApplicationName=iown-service
+    username: ${db_username}
+    password: ${db_password}
+    hikari:
+      connection-test-query: SELECT 1
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 10000
+      connection-timeout: 30000
+      max-lifetime: 600000
+      pool-name: iown-service-pool
+  jpa:
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  docker:
+    compose:
+      enabled: false
