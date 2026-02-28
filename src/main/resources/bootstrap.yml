@@ -1,0 +1,40 @@
+## ── Vault Agent Proxy Connection ──────────────────────────────────
+## Point to the Vault Agent proxy (port 8100), NOT Vault directly.
+## The agent handles authentication and token renewal transparently.
+## Inside Docker, vault-agent is reachable by its service name.
+spring:
+  ## ── Import Declaration (Spring Boot 2.4+) ─────────────────────────
+  #spring.config.import=vault://
+  config:
+    import: vault://
+  cloud:
+    vault:
+      host: 127.0.0.1
+      scheme: http
+
+      ## ── Authentication ────────────────────────────────────────────────
+      ## The agent already authenticated via AppRole and wrote a valid
+      ## token to this file. Spring Cloud Vault reads it from the
+      ## vault_agent_sinks volume mounted at /vault/sinks in the container.
+      authentication: TOKEN
+      token: REDACTED_VAULT_TOKEN
+
+      ## ── KV v2 Secrets Engine ──────────────────────────────────────────
+      ## Matches the path used in 02-bootstrap.sh:
+      ##   vault kv put secret/iown-service/spring ...
+      ## and the policy in spring-boot-policy.hcl:
+      ##   path "secret/data/iown-service/spring"
+      kv:
+        enabled: true
+        backend: secret
+        default-context: iown-service/spring
+        profile-separator: /
+
+      ## ── Secret Lease Renewal ──────────────────────────────────────────
+      ## Keep leases alive automatically. The agent handles token renewal
+      ## but Spring manages its own lease lifecycle for dynamic secrets.
+      config:
+        lifecycle:
+          enabled: true
+          min-renewal: 10s
+          expiry-threshold: 1m
