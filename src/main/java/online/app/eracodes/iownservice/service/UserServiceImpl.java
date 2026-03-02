@@ -18,14 +18,24 @@ public class UserServiceImpl implements UserService {
     public UserCreatedResponse
     createUser(long customerId, String firstname, String lastname, String password, String role) {
         try {
-            var createUserResult = userRepo.createUser(customerId, firstname, lastname, password, role);
+            var result = userRepo.createUser(customerId, firstname, lastname, password, role);
+            if (result.getSuccess()) {
+                return UserCreatedResponse.builder()
+                        .customerId(String.valueOf(customerId))
+                        .userId(result.getNewUserId().toString())
+                        .build();
+            }
+
             return UserCreatedResponse.builder()
                     .customerId(String.valueOf(customerId))
-                    .userId(createUserResult.getNewUserId().toString())
+                    .message(result.getMessage())
                     .build();
         } catch (Exception e) {
             log.error("Failed to create user", e);
-            return null;
+            return UserCreatedResponse.builder()
+                    .customerId(String.valueOf(customerId))
+                    .message("Failed to create user")
+                    .build();
         }
     }
 }

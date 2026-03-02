@@ -10,12 +10,22 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query(value = "select * from public.sp_create_user(:customerId, :firstname, :lastname, :password, :role)",
+    /**
+     * Create a new user using a stored procedure.
+     * @param customerId Customer ID
+     * @param firstName User's first name
+     * @param lastName User's last name
+     * @param password User's password
+     * @param role User's role
+     * @return Result of the stored procedure execution
+     * @throws Exception if an error occurs during execution
+     */
+    @Query(value = "select * from public.sp_create_user(?, ?, ?, ?, ?)",
             nativeQuery = true)
     CreateUserSpResult createUser(
             @Param("p_customerid") long customerId,
-            @Param("p_firstname") String firstname,
-            @Param("p_lastname") String lastname,
+            @Param("p_firstname") String firstName,
+            @Param("p_lastname") String lastName,
             @Param("p_password") String password,
             @Param("p_role") String role
     ) throws Exception;
