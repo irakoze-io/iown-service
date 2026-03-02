@@ -4,9 +4,8 @@
 ## Inside Docker, vault-agent is reachable by its service name.
 spring:
   ## ── Import Declaration (Spring Boot 2.4+) ─────────────────────────
-  #spring.config.import=vault://
   config:
-    import: vault://
+    import: "optional:file:.env[.properties],vault://"
   cloud:
     vault:
       host: 127.0.0.1

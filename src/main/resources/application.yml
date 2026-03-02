@@ -16,7 +16,7 @@ spring:
       minimum-idle: 5
       idle-timeout: 10000
       connection-timeout: 30000
-      max-lifetime: 600000
+      max-lifetime: 300000
       pool-name: iown-service-pool
   jpa:
     hibernate:
@@ -30,3 +30,7 @@ spring:
   docker:
     compose:
       enabled: false
+#  mvc:
+#    apiversion:
+#      use:
+#        header: Api-Version

@@ -3,25 +3,29 @@ package online.app.eracodes.iownservice.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
-import java.util.Date;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity(name = "customers")
 public class Customer {
 
     @Id
-    @Column(name = "customerId")
+    @Column(name = "customer_id")
     private Long id;
 
     @Column(name = "account")
     private String account;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "msisdn")
@@ -30,21 +34,19 @@ public class Customer {
     @Column(name = "gender")
     private String gender;
 
-    @Column(name = "dateOfBirth")
     private LocalDate dob;
 
-    @Column(name = "homeAddress")
     private String address;
 
     @Column(name = "city")
     private String city;
 
-    @Column(name = "postalCode")
+    @Column(name = "postal_code")
     private String postalCode;
 
-    @Column(name = "houseHoldId")
+    @Column(name = "house_hold_id")
     private String houseHoldId;
 
-    @Column(name = "createdAt")
+    @Column(name = "created_at")
     private OffsetDateTime createdDate;
 }
