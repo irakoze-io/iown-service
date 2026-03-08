@@ -22,4 +22,10 @@ public class CustomerController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("")
+    public ResponseEntity<Iterable<CustomerDetails>> getAllCustomers() {
+        log.info("Fetching all customers");
+        return ResponseEntity.ok(customerService.getAllCustomers());
+    }
 }

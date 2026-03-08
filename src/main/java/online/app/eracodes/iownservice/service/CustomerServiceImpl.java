@@ -6,6 +6,7 @@ import online.app.eracodes.iownservice.model.CustomerDetails;
 import online.app.eracodes.iownservice.repo.CustomerRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -24,5 +25,13 @@ public class CustomerServiceImpl implements CustomerService {
             log.error("Error fetching customer details for customerId: {}", customerId, e);
             return Optional.empty();
         }
+    }
+
+    @Override
+    public List<CustomerDetails> getAllCustomers() {
+        return repository.findAll()
+                .stream()
+                .map(CustomerDetails::new)
+                .toList();
     }
 }

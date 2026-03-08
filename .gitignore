@@ -33,3 +33,4 @@ build/
 .vscode/
 /.env
 /init_keys.json
+.aider*
