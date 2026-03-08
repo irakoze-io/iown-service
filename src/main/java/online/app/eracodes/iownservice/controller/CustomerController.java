@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import online.app.eracodes.iownservice.model.CustomerDetails;
 import online.app.eracodes.iownservice.service.CustomerService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -24,6 +25,7 @@ public class CustomerController {
     }
 
     @GetMapping("")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Iterable<CustomerDetails>> getAllCustomers() {
         log.info("Fetching all customers");
         return ResponseEntity.ok(customerService.getAllCustomers());
